@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 2026 Crossing — Medtech Displacement Calculator | Gary Rikard, MBA</title>
+
+<!-- Primary metadata -->
+<meta name="title" content="The 2026 Crossing — Medtech Displacement Calculator | Gary Rikard, MBA">
+<meta name="description" content="Interactive calculator for the displacement ratio in medtech capital equipment workflows: when the math crosses 1.0, which variable is binding, and how posture changes by workflow.">
+<meta name="author" content="Gary Rikard">
+<meta name="creator" content="Gary Rikard">
+<meta name="publisher" content="Gary Rikard">
+<meta name="keywords" content="medtech, capital equipment, workflow economics, displacement ratio, enterprise AI, agentic AI, AI ROI, quote cycle, medtech commercial operations, capital allocation">
+<meta name="robots" content="index, follow">
+<meta name="language" content="en">
+<meta name="theme-color" content="#0f1f40">
+<link rel="canonical" href="https://grikard.github.io/medtech-displacement-calculator/">
+
+<!-- Open Graph / LinkedIn / Substack link previews -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://grikard.github.io/medtech-displacement-calculator/">
+<meta property="og:title" content="The 2026 Crossing — Medtech Displacement Calculator | Gary Rikard">
+<meta property="og:description" content="Interactive calculator for medtech capital equipment quote-cycle workflows: displacement ratio, crossing year, posture, and binding constraint.">
+<meta property="og:site_name" content="Gary Rikard">
+<meta property="og:locale" content="en_US">
+
+<!-- X / Twitter preview metadata -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The 2026 Crossing — Medtech Displacement Calculator | Gary Rikard">
+<meta name="twitter:description" content="Interactive calculator for medtech capital equipment workflow displacement economics.">
+
+<!-- Search-engine structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "The 2026 Crossing — Medtech Displacement Calculator",
+  "headline": "The 2026 Crossing — Medtech Displacement Calculator",
+  "description": "Interactive calculator for the displacement ratio in medtech capital equipment workflows.",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "author": {
+    "@type": "Person",
+    "name": "Gary Rikard",
+    "sameAs": "https://www.linkedin.com/in/garyrikard"
+  },
+  "creator": {
+    "@type": "Person",
+    "name": "Gary Rikard",
+    "sameAs": "https://www.linkedin.com/in/garyrikard"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Gary Rikard",
+    "sameAs": "https://www.linkedin.com/in/garyrikard"
+  },
+  "url": "https://grikard.github.io/medtech-displacement-calculator/",
+  "inLanguage": "en",
+  "datePublished": "2026-05-06",
+  "dateModified": "2026-05-06",
+  "keywords": [
+    "Medtech",
+    "Capital Equipment",
+    "Workflow Economics",
+    "Displacement Ratio",
+    "Enterprise AI",
+    "Agentic AI",
+    "Capital Allocation"
+  ]
+}
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#f8f7f4;color:#111827;display:flex;align-items:flex-start;justify-content:center;min-height:100vh;padding:32px 20px;line-height:1.5}
+.container{max-width:920px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.09);border:.5px solid #e2e0da}
+
+/* Header */
+.hdr{background:#0f1f40;padding:28px 36px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:rgba(124,58,237,.12);border-radius:50%}
+.hdr::after{content:'';position:absolute;bottom:-40px;left:-40px;width:140px;height:140px;background:rgba(5,150,105,.08);border-radius:50%}
+.hdr-eyebrow{font-size:10px;letter-spacing:.14em;color:#9ca3af;text-transform:uppercase;margin-bottom:8px;font-family:'DM Mono',monospace;position:relative}
+.hdr-title{font-size:24px;font-weight:600;color:#fff;margin-bottom:6px;letter-spacing:-.4px;position:relative}
+.hdr-sub{font-size:13px;color:#9ca3af;position:relative;line-height:1.55}
+
+/* Equation display */
+.eq-section{padding:24px 36px;background:#fafaf8;border-bottom:1px solid #e2e0da}
+.eq-label{font-size:10px;font-weight:600;letter-spacing:.1em;color:#6b7280;text-transform:uppercase;margin-bottom:14px;font-family:'DM Mono',monospace}
+.equation{font-family:'DM Mono',monospace;background:#fff;border:.5px solid #e2e0da;border-radius:10px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.eq-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px}
+.eq-symbol{font-size:14px;color:#6b7280;font-weight:500}
+.eq-num{display:flex;flex-direction:column;align-items:center}
+.eq-frac{display:flex;flex-direction:column;align-items:center}
+.eq-top,.eq-bot{display:flex;align-items:center;gap:6px;padding:2px 6px}
+.eq-bar{height:1px;background:#374151;width:100%;margin:1px 0}
+.token{padding:2px 8px;border-radius:4px;font-weight:500;white-space:nowrap}
+.t-fid{background:#ede9fe;color:#5b21b6}
+.t-hum{background:#dbeafe;color:#1e40af}
+.t-ai{background:#fef3c7;color:#92400e}
+.t-er{background:#fce7f3;color:#9d174d}
+.t-ec{background:#fee2e2;color:#991b1b}
+.eq-equals{font-size:18px;color:#374151;font-weight:500;padding:0 6px}
+.eq-result{padding:3px 12px;border-radius:6px;font-weight:600;font-size:14px}
+.eq-result.above{background:#dcfce7;color:#065f46}
+.eq-result.below{background:#fee2e2;color:#991b1b}
+
+/* Presets */
+.presets{padding:20px 36px;border-bottom:1px solid #e2e0da}
+.section-label{font-size:10px;font-weight:600;letter-spacing:.1em;color:#6b7280;text-transform:uppercase;margin-bottom:14px;font-family:'DM Mono',monospace}
+.preset-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.preset-btn{border:.5px solid #e2e0da;background:#fff;border-radius:8px;padding:12px 14px;cursor:pointer;transition:all .15s;text-align:left}
+.preset-btn:hover{border-color:#9ca3af;background:#f9f8f5}
+.preset-btn.active{border-width:1.5px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.preset-btn.active.p1{border-color:#3b82f6;background:#eff6ff}
+.preset-btn.active.p2{border-color:#10b981;background:#f0fdf4}
+.preset-btn.active.p3{border-color:#f97316;background:#fff7ed}
+.preset-btn.active.p4{border-color:#7c3aed;background:#f5f3ff}
+.preset-num{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:4px;color:#6b7280}
+.preset-btn.active.p1 .preset-num{color:#1e40af}
+.preset-btn.active.p2 .preset-num{color:#065f46}
+.preset-btn.active.p3 .preset-num{color:#9a3412}
+.preset-btn.active.p4 .preset-num{color:#5b21b6}
+.preset-title{font-size:12px;font-weight:600;color:#111827;margin-bottom:3px;line-height:1.3}
+.preset-desc{font-size:10.5px;color:#6b7280;line-height:1.4}
+
+/* Controls */
+.controls{padding:24px 36px;border-bottom:1px solid #e2e0da;background:#fafaf8}
+.control-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px 28px}
+.control{display:flex;flex-direction:column}
+.ctrl-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.ctrl-label{font-size:11px;font-weight:600;color:#374151;letter-spacing:.02em}
+.ctrl-token{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.tk-fid{background:#7c3aed}
+.tk-hum{background:#3b82f6}
+.tk-ai{background:#f59e0b}
+.tk-er{background:#ec4899}
+.tk-ec{background:#ef4444}
+.ctrl-val{font-size:12px;font-weight:600;color:#111827;font-family:'DM Mono',monospace}
+.ctrl-slider{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:#e5e7eb;outline:none}
+.ctrl-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:#0f1f40;cursor:pointer;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.ctrl-slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#0f1f40;cursor:pointer;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.ctrl-hint{font-size:10px;color:#9ca3af;margin-top:4px;line-height:1.4}
+
+/* Readouts */
+.readouts{padding:22px 36px;border-bottom:1px solid #e2e0da;background:#fff}
+.read-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.read{padding:14px 16px;border-radius:8px;border:.5px solid #e2e0da;background:#fafaf8}
+.read-label{font-size:10px;color:#6b7280;font-family:'DM Mono',monospace;margin-bottom:6px;letter-spacing:.05em}
+.read-val{font-size:24px;font-weight:600;line-height:1;margin-bottom:4px;font-family:'DM Mono',monospace}
+.read-val.above{color:#059669}
+.read-val.below{color:#dc2626}
+.read-val.never{color:#6b7280}
+.read-sub{font-size:11px;color:#6b7280;line-height:1.4}
+
+/* Chart */
+.chart-section{padding:24px 36px;border-bottom:1px solid #e2e0da}
+.chart-wrap{background:#fafaf8;border:.5px solid #e2e0da;border-radius:10px;padding:18px 12px 6px;position:relative}
+svg.chart{width:100%;height:auto;display:block;font-family:'DM Sans',sans-serif}
+.chart-legend{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:10px;padding:8px 0}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:10.5px;color:#6b7280;font-family:'DM Mono',monospace;cursor:pointer}
+.legend-swatch{width:18px;height:2px;border-radius:1px}
+.legend-item.dim{opacity:.4}
+
+/* Insight */
+.insight-section{padding:20px 36px;border-bottom:1px solid #e2e0da;background:#fafaf8}
+.insight{background:#fff;border-left:3px solid #7c3aed;border-radius:6px;padding:14px 18px;font-size:13px;color:#374151;line-height:1.6}
+.insight strong{color:#0f1f40;font-weight:600}
+.insight-binding{display:inline-block;background:#ede9fe;color:#5b21b6;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;font-family:'DM Mono',monospace;margin:0 2px}
+
+/* Footer */
+.footer{padding:14px 36px;background:#f9f8f5;border-top:.5px solid #e2e0da}
+.footer p{font-size:9.5px;color:#9ca3af;text-align:center;line-height:1.7}
+.footer a{color:#6b7280;text-decoration:none}
+.footer a:hover{text-decoration:underline}
+.footer strong{color:#6b7280;font-weight:600}
+
+@media (max-width: 720px){
+  body{padding:16px 12px}
+  .hdr,.eq-section,.presets,.controls,.readouts,.chart-section,.insight-section,.footer{padding-left:20px;padding-right:20px}
+  .preset-grid{grid-template-columns:repeat(2,1fr)}
+  .control-grid{grid-template-columns:1fr}
+  .read-grid{grid-template-columns:1fr;gap:8px}
+  .hdr-title{font-size:20px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="hdr">
+    <p class="hdr-eyebrow">Workflow Economics · The 2026 Crossing · Medtech Capital Equipment</p>
+    <p class="hdr-title">When does the displacement ratio cross 1.0?</p>
+    <p class="hdr-sub">An interactive calculator for medtech quote-cycle work. Adjust the variables; watch the curve. The 1.0 threshold is where AI-augmented economics overtake human-only execution. Different workflows cross at different times — and some don't cross at all.</p>
+  </div>
+
+  <div class="eq-section">
+    <p class="eq-label">The displacement equation · live values</p>
+    <div class="equation">
+      <div class="eq-row">
+        <span class="eq-symbol">ratio</span>
+        <span class="eq-equals">=</span>
+        <div class="eq-frac">
+          <div class="eq-top">
+            <span class="token t-fid" id="eq-fid">0.95</span>
+            <span class="eq-symbol">×</span>
+            <span class="token t-hum" id="eq-hum">$400</span>
+          </div>
+          <div class="eq-bar"></div>
+          <div class="eq-bot">
+            <span class="token t-ai" id="eq-ai">$10</span>
+            <span class="eq-symbol">+</span>
+            <span class="token t-er" id="eq-er">0.030</span>
+            <span class="eq-symbol">×</span>
+            <span class="token t-ec" id="eq-ec">$2,000</span>
+          </div>
+        </div>
+        <span class="eq-equals">=</span>
+        <span class="eq-result" id="eq-res">5.43</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="presets">
+    <p class="section-label">Workflow presets · click to load · then adjust below</p>
+    <div class="preset-grid">
+      <div class="preset-btn p1 active" data-preset="0">
+        <div class="preset-num">01 · Automate Now</div>
+        <div class="preset-title">Quote validation pass</div>
+        <div class="preset-desc">GPO lookup, config check, reg addendum, mfg availability</div>
+      </div>
+      <div class="preset-btn p2" data-preset="1">
+        <div class="preset-num">02 · Sequence Next</div>
+        <div class="preset-title">RFP response generation</div>
+        <div class="preset-desc">200–600pp hospital RFP, technical + commercial + regulatory</div>
+      </div>
+      <div class="preset-btn p3" data-preset="2">
+        <div class="preset-num">03 · Build &amp; Defend</div>
+        <div class="preset-title">Contract structuring</div>
+        <div class="preset-desc">Customer-specific terms, service tier, capital lease alternatives</div>
+      </div>
+      <div class="preset-btn p4" data-preset="3">
+        <div class="preset-num">04 · Protect &amp; Invest</div>
+        <div class="preset-title">Strategic account planning</div>
+        <div class="preset-desc">Multi-year IDN strategy, KOL plan, competitive positioning</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <p class="section-label">Variables · 2026 baseline · time evolution applied to chart</p>
+    <div class="control-grid">
+
+      <div class="control">
+        <div class="ctrl-row">
+          <span class="ctrl-label"><span class="ctrl-token tk-fid"></span>Intelligence fidelity</span>
+          <span class="ctrl-val" id="lbl-fid">0.95</span>
+        </div>
+        <input type="range" class="ctrl-slider" id="sl-fid" min="0.50" max="0.99" step="0.01" value="0.95">
+        <p class="ctrl-hint">How reliably the AI produces the correct output. Rises ~0.015/yr toward 0.99 ceiling. Anchored to DocPuzzle / LongBench v2 benchmarks for task-specific fidelity.</p>
+      </div>
+
+      <div class="control">
+        <div class="ctrl-row">
+          <span class="ctrl-label"><span class="ctrl-token tk-hum"></span>Human baseline cost</span>
+          <span class="ctrl-val" id="lbl-hum">$400</span>
+        </div>
+        <input type="range" class="ctrl-slider" id="sl-hum" min="100" max="20000" step="100" value="400">
+        <p class="ctrl-hint">Fully-loaded SE + deal desk + counsel cost per workflow execution. Anchored to Consensus 2025 SE Compensation Report ($220–280/hr enterprise blended). Rises 4%/yr.</p>
+      </div>
+
+      <div class="control">
+        <div class="ctrl-row">
+          <span class="ctrl-label"><span class="ctrl-token tk-ai"></span>AI execution cost (2026)</span>
+          <span class="ctrl-val" id="lbl-ai">$10</span>
+        </div>
+        <input type="range" class="ctrl-slider" id="sl-ai" min="1" max="500" step="1" value="10">
+        <p class="ctrl-hint">Total inference + platform per workflow execution. Falls 10× every 15 months on chart, per Token Efficiency Framework panel 2.</p>
+      </div>
+
+      <div class="control">
+        <div class="ctrl-row">
+          <span class="ctrl-label"><span class="ctrl-token tk-er"></span>Error rate</span>
+          <span class="ctrl-val" id="lbl-er">0.030</span>
+        </div>
+        <input type="range" class="ctrl-slider" id="sl-er" min="0.001" max="0.30" step="0.001" value="0.03">
+        <p class="ctrl-hint">Probability of a wrong output. Falls proportionally as fidelity rises, with a workflow-specific floor. Calibrated by task complexity.</p>
+      </div>
+
+      <div class="control" style="grid-column:1 / -1">
+        <div class="ctrl-row">
+          <span class="ctrl-label"><span class="ctrl-token tk-ec"></span>Error cost (per failure)</span>
+          <span class="ctrl-val" id="lbl-ec">$2,000</span>
+        </div>
+        <input type="range" class="ctrl-slider" id="sl-ec" min="500" max="10000000" step="500" value="2000">
+        <p class="ctrl-hint">Consequence of being wrong: rework, lost deal, regulatory exposure. Workflow-specific. Held constant on the chart — this is the variable that doesn't decay, and the one that determines whether the curve ever crosses 1.0.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="readouts">
+    <div class="read-grid">
+      <div class="read">
+        <div class="read-label">Current ratio (2026)</div>
+        <div class="read-val above" id="rd-ratio">5.43</div>
+        <div class="read-sub" id="rd-ratio-sub">Above 1.0 — displaceable today</div>
+      </div>
+      <div class="read">
+        <div class="read-label">Crossing year</div>
+        <div class="read-val above" id="rd-cross">2025</div>
+        <div class="read-sub" id="rd-cross-sub">Year displacement ratio crosses 1.0</div>
+      </div>
+      <div class="read">
+        <div class="read-label">Posture recommendation</div>
+        <div class="read-val above" style="font-size:18px" id="rd-post">Automate Now</div>
+        <div class="read-sub" id="rd-post-sub">0–6 month ROIC horizon</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-section">
+    <p class="section-label">Displacement ratio · 2024–2030 · log scale</p>
+    <div class="chart-wrap">
+      <svg class="chart" viewBox="0 0 880 360" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="aboveGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#dcfce7" stop-opacity=".5"/>
+            <stop offset="100%" stop-color="#dcfce7" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="belowGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#fee2e2" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#fee2e2" stop-opacity=".5"/>
+          </linearGradient>
+        </defs>
+        <g id="chart-bg"></g>
+        <g id="chart-axes"></g>
+        <g id="chart-curves"></g>
+        <g id="chart-overlay"></g>
+      </svg>
+    </div>
+    <div class="chart-legend" id="legend"></div>
+  </div>
+
+  <div class="insight-section">
+    <p class="section-label">What's binding · sensitivity analysis</p>
+    <div class="insight" id="insight">
+      Loading…
+    </div>
+  </div>
+
+  <div class="footer">
+    <p><strong>Calibration sources:</strong> Sales engineer / deal desk fully-loaded rates from Consensus 2025 Sales Engineering Compensation Report (median SE base $140K, OTE $160–230K, 1.4–1.7× fully-loaded multiplier yields $220–280/hr enterprise blended). AI error rate ranges from DocPuzzle (Feb 2025), LongBench v2, and HELM long-context evaluations — calibrated by task complexity (1–3% structured lookup, 5–12% document synthesis, 10–20% high-judgment). Task time estimates from industry sales operations practice; per-customer baselines recommended for production deployment. Three-curve scaling assumptions from <a href="https://grikard.github.io/token-efficiency-framework/">Token Efficiency Framework</a>: AI cost decay 10× / 15 months, fidelity rise 0.015/yr, human cost rise 4%/yr.</p>
+    <p style="margin-top:8px"><strong>Gary Rikard, MBA</strong> · Workflow Economics · The 2026 Crossing · Companion to the <a href="https://grikard.github.io/token-efficiency-framework/">Token Efficiency Framework</a> · <a href="https://www.linkedin.com/in/garyrikard" target="_blank" rel="noopener noreferrer">LinkedIn: garyrikard</a> · Math: ratio = (fidelity × human cost) / (AI cost + error rate × error cost) · Presets are illustrative; calibrate to your operations data for client-specific deployment · #WorkflowEconomics #EnterpriseAI #Medtech</p>
+  </div>
+
+</div>
+
+<script>
+// ============================================================
+// PRESETS — medtech-specific workflows calibrated to:
+//   - Consensus 2025 SE Compensation Report (rate data)
+//   - DocPuzzle / LongBench v2 (AI error rate benchmarks)
+//   - Industry practice for task time estimates
+//   - Workflow Economics framework (Token Efficiency)
+// ============================================================
+const PRESETS = [
+  {
+    name: 'Quote validation pass',
+    color: '#3b82f6',
+    colorLight: '#dbeafe',
+    fidelity: 0.95,
+    humanCost: 400,
+    aiCost: 10,
+    errorRate: 0.03,
+    errorCost: 2000,
+    floor: 0.01,
+    posture: 'Automate Now',
+    horizon: '0–6 month ROIC horizon',
+    scope: '1–1.5 hr blended SE + deal desk; GPO lookup, config check, reg addendum, mfg availability'
+  },
+  {
+    name: 'RFP response generation',
+    color: '#10b981',
+    colorLight: '#dcfce7',
+    fidelity: 0.92,
+    humanCost: 9000,
+    aiCost: 100,
+    errorRate: 0.10,
+    errorCost: 100000,
+    floor: 0.01,
+    posture: 'Sequence Next',
+    horizon: '12–24 month horizon',
+    scope: '30–50 hr SE; 200–600 page hospital RFP, technical + commercial + regulatory sections'
+  },
+  {
+    name: 'Customer-specific contract structuring',
+    color: '#f97316',
+    colorLight: '#ffedd5',
+    fidelity: 0.95,
+    humanCost: 5000,
+    aiCost: 50,
+    errorRate: 0.04,
+    errorCost: 500000,
+    floor: 0.005,
+    posture: 'Build & Defend',
+    horizon: '24–48 month horizon',
+    scope: '15–25 hr SE + deal desk + counsel; tailored terms, service tier, capital lease alternatives'
+  },
+  {
+    name: 'Strategic account planning',
+    color: '#7c3aed',
+    colorLight: '#ede9fe',
+    fidelity: 0.99,
+    humanCost: 10000,
+    aiCost: 100,
+    errorRate: 0.10,
+    errorCost: 5000000,
+    floor: 0.01,
+    posture: 'Protect & Invest',
+    horizon: '36+ month horizon',
+    scope: '25–40 hr senior + executive; multi-year IDN strategy, KOL plan, competitive positioning'
+  }
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let activePreset = 0;
+let state = { ...PRESETS[0] };
+
+// ============================================================
+// MATH
+// ============================================================
+function ratioAt(year, s) {
+  const dt = year - 2026;
+  const aiCost = s.aiCost * Math.pow(10, -dt / 1.25);
+  const fidelity = Math.min(0.99, s.fidelity + dt * 0.015);
+  const humanCost = s.humanCost * Math.pow(1.04, dt);
+  // Error rate scales with fidelity improvement
+  const fidGap2026 = Math.max(0.001, 1 - s.fidelity);
+  const fidGapNow = Math.max(0.001, 1 - fidelity);
+  const erScale = fidGapNow / fidGap2026;
+  const errorRate = Math.max(s.floor, s.errorRate * erScale);
+  return (fidelity * humanCost) / (aiCost + errorRate * s.errorCost);
+}
+
+function findCrossingYear(s) {
+  // Find when ratio crosses 1.0 (binary search-ish)
+  const r2024 = ratioAt(2024, s);
+  if (r2024 >= 1.0) return { year: '2024', already: true };
+  // Sample to 2030 in 0.1-yr steps
+  for (let y = 2024; y <= 2032; y += 0.1) {
+    if (ratioAt(y, s) >= 1.0) {
+      return { year: y.toFixed(1), already: false };
+    }
+  }
+  return { year: 'never', already: false, never: true };
+}
+
+function bindingConstraint(s) {
+  // Compare contributions to denominator
+  const aiCost = s.aiCost;
+  const errorTerm = s.errorRate * s.errorCost;
+  const ratio = (s.fidelity * s.humanCost) / (aiCost + errorTerm);
+
+  // What dominates the denominator?
+  const errorShare = errorTerm / (aiCost + errorTerm);
+  if (errorShare > 0.7) {
+    return { variable: 'error cost', explanation: 'Error penalty dominates the denominator. AI cost decay does not move the needle — fidelity gains and error-cost reduction are the binding levers.' };
+  }
+  if (errorShare < 0.2) {
+    return { variable: 'AI execution cost', explanation: 'AI execution cost dominates today. The ratio benefits directly from the 10×/15-month cost curve — this workflow is on the steepest part of the displacement trajectory.' };
+  }
+  return { variable: 'mixed', explanation: 'AI cost and error penalty are balanced. Both fidelity gains and AI cost decay contribute meaningfully — the workflow crosses the threshold in the middle of the curve.' };
+}
+
+function postureFor(ratio) {
+  if (ratio >= 2.0) return { name: 'Automate Now', sub: '0–6 month ROIC horizon', cls: 'above' };
+  if (ratio >= 1.0) return { name: 'Automate Now', sub: 'just above threshold', cls: 'above' };
+  if (ratio >= 0.6) return { name: 'Sequence Next', sub: '12–24 month horizon', cls: 'below' };
+  if (ratio >= 0.3) return { name: 'Build & Defend', sub: '24–48 month horizon', cls: 'below' };
+  return { name: 'Protect & Invest', sub: '36+ month horizon', cls: 'never' };
+}
+
+// ============================================================
+// CHART RENDERING
+// ============================================================
+const CHART = {
+  w: 880, h: 360,
+  pad: { l: 50, r: 20, t: 20, b: 40 },
+  yMin: 0.01, yMax: 100,
+  xMin: 2024, xMax: 2030
+};
+
+function xToPx(year) {
+  const { w, pad, xMin, xMax } = CHART;
+  return pad.l + ((year - xMin) / (xMax - xMin)) * (w - pad.l - pad.r);
+}
+function yToPx(ratio) {
+  const { h, pad, yMin, yMax } = CHART;
+  const lr = Math.log10(Math.max(yMin, Math.min(yMax, ratio)));
+  const lmin = Math.log10(yMin), lmax = Math.log10(yMax);
+  return pad.t + (1 - (lr - lmin) / (lmax - lmin)) * (h - pad.t - pad.b);
+}
+
+function renderAxes() {
+  const g = document.getElementById('chart-axes');
+  let html = '';
+  // Y gridlines at 0.01, 0.1, 1, 10, 100
+  [0.01, 0.1, 1, 10, 100].forEach(v => {
+    const y = yToPx(v);
+    const isThreshold = v === 1;
+    html += `<line x1="${CHART.pad.l}" y1="${y}" x2="${CHART.w - CHART.pad.r}" y2="${y}"
+              stroke="${isThreshold ? '#0f1f40' : '#e5e7eb'}"
+              stroke-width="${isThreshold ? 1.5 : 0.5}"
+              stroke-dasharray="${isThreshold ? '4 3' : '2 2'}"/>`;
+    html += `<text x="${CHART.pad.l - 8}" y="${y + 3}" text-anchor="end"
+              font-size="10" font-family="DM Mono, monospace"
+              fill="${isThreshold ? '#0f1f40' : '#9ca3af'}"
+              font-weight="${isThreshold ? '600' : '400'}">${v < 1 ? v.toFixed(2) : v.toFixed(0)}</text>`;
+  });
+  // Threshold label
+  html += `<text x="${CHART.w - CHART.pad.r - 4}" y="${yToPx(1) - 5}"
+            text-anchor="end" font-size="10" font-family="DM Mono, monospace"
+            fill="#0f1f40" font-weight="600">displacement threshold = 1.0</text>`;
+
+  // X axis years
+  for (let y = 2024; y <= 2030; y++) {
+    const x = xToPx(y);
+    html += `<line x1="${x}" y1="${CHART.h - CHART.pad.b}" x2="${x}" y2="${CHART.h - CHART.pad.b + 4}"
+              stroke="#9ca3af" stroke-width="0.5"/>`;
+    html += `<text x="${x}" y="${CHART.h - CHART.pad.b + 16}" text-anchor="middle"
+              font-size="10" font-family="DM Mono, monospace" fill="#6b7280">${y}</text>`;
+  }
+  // Highlight 2026
+  const x2026 = xToPx(2026);
+  html += `<line x1="${x2026}" y1="${CHART.pad.t}" x2="${x2026}" y2="${CHART.h - CHART.pad.b}"
+            stroke="#7c3aed" stroke-width="0.5" stroke-dasharray="2 2" opacity=".5"/>`;
+  html += `<text x="${x2026}" y="${CHART.pad.t - 4}" text-anchor="middle"
+            font-size="9" font-family="DM Mono, monospace" fill="#7c3aed" font-weight="600">2026 baseline</text>`;
+
+  // Background zones
+  const bgY1 = yToPx(1);
+  html = `<rect x="${CHART.pad.l}" y="${CHART.pad.t}"
+            width="${CHART.w - CHART.pad.l - CHART.pad.r}" height="${bgY1 - CHART.pad.t}"
+            fill="url(#aboveGrad)"/>` +
+         `<rect x="${CHART.pad.l}" y="${bgY1}"
+            width="${CHART.w - CHART.pad.l - CHART.pad.r}" height="${CHART.h - CHART.pad.b - bgY1}"
+            fill="url(#belowGrad)"/>` + html;
+  g.innerHTML = html;
+}
+
+function renderCurves() {
+  const g = document.getElementById('chart-curves');
+  let html = '';
+
+  // Render all preset curves at their default values
+  PRESETS.forEach((p, idx) => {
+    const isActive = idx === activePreset;
+    const s = isActive ? state : p;
+    const pts = [];
+    for (let y = 2024; y <= 2030; y += 0.1) {
+      pts.push([xToPx(y), yToPx(ratioAt(y, s))]);
+    }
+    const path = pts.map((pt, i) => `${i === 0 ? 'M' : 'L'}${pt[0].toFixed(1)},${pt[1].toFixed(1)}`).join(' ');
+    html += `<path d="${path}" fill="none"
+              stroke="${p.color}"
+              stroke-width="${isActive ? 2.5 : 1}"
+              opacity="${isActive ? 1 : 0.3}"/>`;
+  });
+
+  g.innerHTML = html;
+}
+
+function renderOverlay() {
+  const g = document.getElementById('chart-overlay');
+  let html = '';
+
+  const cross = findCrossingYear(state);
+  if (!cross.never && !cross.already) {
+    const cy = parseFloat(cross.year);
+    const cx = xToPx(cy);
+    const cyPx = yToPx(1);
+    html += `<circle cx="${cx}" cy="${cyPx}" r="6" fill="${PRESETS[activePreset].color}" stroke="#fff" stroke-width="2"/>`;
+    html += `<line x1="${cx}" y1="${CHART.pad.t}" x2="${cx}" y2="${cyPx}"
+              stroke="${PRESETS[activePreset].color}" stroke-width="0.5" stroke-dasharray="3 2" opacity=".6"/>`;
+    html += `<rect x="${cx - 28}" y="${CHART.pad.t + 2}" width="56" height="18" rx="3"
+              fill="${PRESETS[activePreset].color}" opacity=".95"/>`;
+    html += `<text x="${cx}" y="${CHART.pad.t + 14}" text-anchor="middle"
+              font-size="10" font-family="DM Mono, monospace" fill="#fff" font-weight="600">${cross.year}</text>`;
+  }
+
+  g.innerHTML = html;
+}
+
+function renderLegend() {
+  const el = document.getElementById('legend');
+  el.innerHTML = PRESETS.map((p, i) => `
+    <div class="legend-item ${i === activePreset ? '' : 'dim'}" data-preset="${i}">
+      <span class="legend-swatch" style="background:${p.color}"></span>
+      <span>${p.name}</span>
+    </div>
+  `).join('');
+  el.querySelectorAll('.legend-item').forEach(item => {
+    item.addEventListener('click', () => loadPreset(parseInt(item.dataset.preset)));
+  });
+}
+
+// ============================================================
+// READOUT RENDERING
+// ============================================================
+function fmt$(v) {
+  if (v >= 1000000) return '$' + (v / 1000000).toFixed(1) + 'M';
+  if (v >= 1000) return '$' + (v / 1000).toFixed(v >= 10000 ? 0 : 1) + 'K';
+  return '$' + v.toFixed(0);
+}
+
+function fmtFull$(v) {
+  return '$' + v.toLocaleString('en-US', { maximumFractionDigits: 0 });
+}
+
+function renderReadouts() {
+  const r2026 = ratioAt(2026, state);
+  const cross = findCrossingYear(state);
+  const post = postureFor(r2026);
+
+  // Equation tokens
+  document.getElementById('eq-fid').textContent = state.fidelity.toFixed(2);
+  document.getElementById('eq-hum').textContent = fmtFull$(state.humanCost);
+  document.getElementById('eq-ai').textContent = fmtFull$(state.aiCost);
+  document.getElementById('eq-er').textContent = state.errorRate.toFixed(3);
+  document.getElementById('eq-ec').textContent = fmtFull$(state.errorCost);
+  const eqRes = document.getElementById('eq-res');
+  eqRes.textContent = r2026.toFixed(2);
+  eqRes.className = 'eq-result ' + (r2026 >= 1 ? 'above' : 'below');
+
+  // Slider labels
+  document.getElementById('lbl-fid').textContent = state.fidelity.toFixed(2);
+  document.getElementById('lbl-hum').textContent = fmtFull$(state.humanCost);
+  document.getElementById('lbl-ai').textContent = fmtFull$(state.aiCost);
+  document.getElementById('lbl-er').textContent = state.errorRate.toFixed(3);
+  document.getElementById('lbl-ec').textContent = fmtFull$(state.errorCost);
+
+  // Readouts
+  const rdRatio = document.getElementById('rd-ratio');
+  rdRatio.textContent = r2026.toFixed(2);
+  rdRatio.className = 'read-val ' + post.cls;
+  document.getElementById('rd-ratio-sub').textContent =
+    r2026 >= 1 ? 'Above 1.0 — displaceable today' : 'Below 1.0 — not yet displaceable';
+
+  const rdCross = document.getElementById('rd-cross');
+  if (cross.already) {
+    rdCross.textContent = 'pre-2024 ✓';
+    rdCross.className = 'read-val above';
+    document.getElementById('rd-cross-sub').textContent = 'Already past the threshold';
+  } else if (cross.never) {
+    rdCross.textContent = 'never*';
+    rdCross.className = 'read-val never';
+    document.getElementById('rd-cross-sub').textContent = '*not by 2032 under current settings';
+  } else {
+    rdCross.textContent = cross.year;
+    rdCross.className = 'read-val ' + (parseFloat(cross.year) <= 2027 ? 'above' : 'below');
+    document.getElementById('rd-cross-sub').textContent = 'Year displacement ratio crosses 1.0';
+  }
+
+  const rdPost = document.getElementById('rd-post');
+  rdPost.textContent = post.name;
+  rdPost.className = 'read-val ' + post.cls;
+  rdPost.style.fontSize = '18px';
+  document.getElementById('rd-post-sub').textContent = post.sub;
+}
+
+function renderInsight() {
+  const r2026 = ratioAt(2026, state);
+  const cross = findCrossingYear(state);
+  const binding = bindingConstraint(state);
+  const presetName = PRESETS[activePreset].name;
+
+  let scenario;
+  if (cross.already) {
+    scenario = `<strong>${presetName}</strong> is already displaceable. The ratio at 2026 is <strong>${r2026.toFixed(2)}</strong> — well above the 1.0 threshold. This is the AUTOMATE NOW work that the agent does in the 90–180 second trace.`;
+  } else if (cross.never) {
+    scenario = `<strong>${presetName}</strong> does not cross 1.0 by 2032 under current settings. The ratio peaks below the threshold because the error penalty term is large enough that even AI cost falling to near zero does not flip the math. This is PROTECT & INVEST work — human-led, agent-augmented, never wholesale displaceable.`;
+  } else {
+    scenario = `<strong>${presetName}</strong> crosses 1.0 in <strong>${cross.year}</strong>. At 2026 the ratio is <strong>${r2026.toFixed(2)}</strong>; by the crossing year, accumulated fidelity gains and AI cost decay flip the math. Capital allocated against this workflow before the crossing earns optionality on the post-crossing economics.`;
+  }
+
+  const bindStr = `Binding constraint: <span class="insight-binding">${binding.variable}</span>. ${binding.explanation}`;
+
+  document.getElementById('insight').innerHTML = `${scenario}<br><br>${bindStr}`;
+}
+
+// ============================================================
+// PRESET LOADING & EVENT WIRING
+// ============================================================
+function loadPreset(idx) {
+  activePreset = idx;
+  state = { ...PRESETS[idx] };
+  // Update slider DOM values
+  document.getElementById('sl-fid').value = state.fidelity;
+  document.getElementById('sl-hum').value = state.humanCost;
+  document.getElementById('sl-ai').value = state.aiCost;
+  document.getElementById('sl-er').value = state.errorRate;
+  document.getElementById('sl-ec').value = state.errorCost;
+  // Update active class
+  document.querySelectorAll('.preset-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', i === idx);
+  });
+  rerender();
+}
+
+function rerender() {
+  renderReadouts();
+  renderCurves();
+  renderOverlay();
+  renderLegend();
+  renderInsight();
+}
+
+document.querySelectorAll('.preset-btn').forEach(btn => {
+  btn.addEventListener('click', () => loadPreset(parseInt(btn.dataset.preset)));
+});
+
+document.getElementById('sl-fid').addEventListener('input', e => {
+  state.fidelity = parseFloat(e.target.value);
+  rerender();
+});
+document.getElementById('sl-hum').addEventListener('input', e => {
+  state.humanCost = parseFloat(e.target.value);
+  rerender();
+});
+document.getElementById('sl-ai').addEventListener('input', e => {
+  state.aiCost = parseFloat(e.target.value);
+  rerender();
+});
+document.getElementById('sl-er').addEventListener('input', e => {
+  state.errorRate = parseFloat(e.target.value);
+  rerender();
+});
+document.getElementById('sl-ec').addEventListener('input', e => {
+  state.errorCost = parseFloat(e.target.value);
+  rerender();
+});
+
+// ============================================================
+// INITIAL RENDER
+// ============================================================
+renderAxes();
+rerender();
+</script>
+</body>
+</html>
